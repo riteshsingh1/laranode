@@ -27,4 +27,9 @@ const resetPassword = async (req: Request, res: Response) => {};
 
 export const authController = {
   signup,
+  verify,
+  resendVerificationRequest,
+  login,
+  forgotPassword,
+  resetPassword,
 };
