@@ -8,7 +8,7 @@
     "start": "node dist/core/boot.js",
     "dev": "tsnd --respawn -r tsconfig-paths/register src/core/boot.ts ",
     "crud": "node node_modules/npm-crud/src/index.js",
-    "prisma:generate": "npx prisma generate --schema=src/database/schema.prisma"
+    "prisma:generate": "npx prisma generate --schema=src/database/schema.prisma "
   },
   "repository": {
     "type": "git",

@@ -10,6 +10,7 @@
   "tables": [
     {
       "name": "users",
+      "override": false,
       "columns": [
         {
           "name": "name",
@@ -29,10 +30,15 @@
           "validations": "required|max:255|min:200|string"
         },
         {
+          "name": "password",
+          "type": "string",
+          "validations": "required|max:255|min:200|string"
+        },
+        {
           "name": "isVerified",
           "type": "boolean",
           "notRequiredInForm": true,
-          "defaultValue": false
+          "defaultValue": "false"
         },
         {
           "name": "timestamps"
