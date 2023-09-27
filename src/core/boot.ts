@@ -12,7 +12,7 @@ app.use(hpp());
 // Use Helmet!
 app.use(helmet());
 // Express JSON
-app.use(express.json({ limit: "50mb" }));
+app.use(express.json({ limit: env.APP_MAX_UPLOAD_LIMIT }));
 // Filter XSS Attacks
 app.use(xss());
 // Router
@@ -23,6 +23,16 @@ app.use("*", (_, res) => {
     status: "NOT_FOUND",
   });
 });
+// Load Queue
+// if(env.q)
+// const isQueueMonitorEnabled: boolean = Locals.config().queueMonitor;
+// 		const queueMonitorPort: number = Locals.config().queueMonitorHttpPort;
+
+// 		if (isQueueMonitorEnabled) {
+// 			kue.app.listen(queueMonitorPort);
+
+// 			console.log('\x1b[33m%s\x1b[0m', `Queue Monitor :: Running @ 'http://localhost:${queueMonitorPort}'`);
+// 		}
 // Start Server
 app.listen(env.PORT, () => {
   logger.info(formatLog("SERVER::BOOTED::SUCCESSFULLY", { port: env.PORT }));
