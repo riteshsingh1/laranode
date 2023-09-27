@@ -22,7 +22,9 @@
       "@emails/*": ["./src/app/emails/*"],
       "@jobs/*": ["./src/console/jobs/*"],
       "@commands/*": ["./src/console/commands/*"],
-      "@routes/*": ["./src/routes/*"]
+      "@routes/*": ["./src/routes/*"],
+      "@validations/*": ["./src/app/http/validations/*"],
+      "@dtos/*": ["./src/app/http/dtos/*"],
     }
   },
   "include": ["**/*.ts"],
