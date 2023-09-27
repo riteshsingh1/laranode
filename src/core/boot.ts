@@ -16,13 +16,14 @@ app.use(express.json({ limit: env.APP_MAX_UPLOAD_LIMIT }));
 // Filter XSS Attacks
 app.use(xss());
 // Router
-app.use("/", router);
+app.use(router);
 // 404 Route
-app.use("*", (_, res) => {
-  return res.status(404).json({
-    status: "NOT_FOUND",
-  });
-});
+// app.use("*", (_, res) => {
+//   return res.status(404).json({
+//     status: "NOT_FOUND",
+//     message: "The route you are looking for is not defined.",
+//   });
+// });
 // Start Server
 app.listen(env.PORT, () => {
   logger.info(formatLog("SERVER::BOOTED::SUCCESSFULLY", { port: env.PORT }));
