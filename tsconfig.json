@@ -24,5 +24,7 @@
       "@commands/*": ["./src/console/commands/*"],
       "@routes/*": ["./src/routes/*"]
     }
-  }
+  },
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules"],
 }
