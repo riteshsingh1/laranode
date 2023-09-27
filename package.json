@@ -4,9 +4,9 @@
   "description": "Laravel Kind of Framework for Express",
   "main": "dist/core/boot.js",
   "scripts": {
-    "build": "npx tsc",
+    "build": "tsc --project tsconfig.json && tsc-alias -p tsconfig.json",
     "start": "node dist/core/boot.js",
-    "dev": "npm run build && npm run start"
+    "dev": "tsnd --respawn -r tsconfig-paths/register src/core/boot.ts "
   },
   "repository": {
     "type": "git",
@@ -42,6 +42,8 @@
     "@types/xss-filters": "^0.0.28",
     "nodemon": "^3.0.1",
     "ts-node-dev": "^2.0.0",
+    "tsc-alias": "^1.8.8",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.2.2"
   }
 }

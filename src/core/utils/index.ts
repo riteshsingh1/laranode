@@ -1,4 +1,4 @@
-import { formatLog } from "./formatLogger";
+import { formatLog } from "@/core/utils/formatLogger";
 
 export const utils = {
   formatLog,

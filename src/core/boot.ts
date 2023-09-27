@@ -1,11 +1,11 @@
 import express, { Application } from "express";
 import hpp from "hpp";
 import helmet from "helmet";
-import env from "../config";
-import logger from "./logger";
-import { utils } from "./utils";
-import router from "../routes";
-import xss from "./xss";
+import env from "@config/index";
+import logger from "@/core/logger";
+import { formatLog } from "@utils/formatLogger";
+import router from "@routes/index";
+import xss from "@/core/xss";
 
 const app: Application = express();
 app.use(hpp());
@@ -25,7 +25,5 @@ app.use("*", (_, res) => {
 });
 // Start Server
 app.listen(env.PORT, () => {
-  logger.info(
-    utils.formatLog("SERVER::BOOTED::SUCCESSFULLY", { port: env.PORT })
-  );
+  logger.info(formatLog("SERVER::BOOTED::SUCCESSFULLY", { port: env.PORT }));
 });

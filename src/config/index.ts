@@ -1,6 +1,6 @@
-import { appConfig } from "./app";
-import { mailConfig } from "./mail";
-import { logConfig } from "./logger";
+import { appConfig } from "@config/app";
+import { mailConfig } from "@config/mail";
+import { logConfig } from "@config/logger";
 import { z } from "zod";
 import dotenv from "dotenv";
 

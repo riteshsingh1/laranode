@@ -1,5 +1,5 @@
 import winston, { format } from "winston";
-import env from "../config";
+import env from "@config/index";
 
 const { combine, timestamp, label, printf } = format;
 const CATEGORY = "Laranode";
