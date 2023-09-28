@@ -5,6 +5,8 @@ import {
   IEditUsers,
   IDeleteUsers,
 } from "@dtos/users.dto";
+import bcrypt from "bcrypt";
+import _ from "underscore";
 
 /**
  * Saves users into database
@@ -20,6 +22,7 @@ const createUsers = async (
   data: ICreateUsers
 ): Promise<{ errorCode: "NO_ERROR" | "EXCEPTION_ERROR"; data: any }> => {
   try {
+    data.password = await bcrypt.hash(data.password, 10);
     const model = await prisma.users.create({
       data: {
         name: data.name,
@@ -60,7 +63,9 @@ const editUsers = async (
         id: data.id,
       },
     });
+
     if (model) {
+      _.omit(model, ["password"]);
       return {
         errorCode: "NO_ERROR",
         data: model,
@@ -68,7 +73,7 @@ const editUsers = async (
     }
     return { errorCode: "EXCEPTION_ERROR", data: null };
   } catch (err: any) {
-    console.log("ERROR_IN_SAVING", err.Message);
+    console.log("ERROR_IN_FETCHING", err.Message);
     return { errorCode: "EXCEPTION_ERROR", data: null };
   }
 };

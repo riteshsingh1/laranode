@@ -3,6 +3,7 @@ import { mailConfig } from "@config/mail";
 import { logConfig } from "@config/logger";
 import { queConfig } from "@config/queue";
 import { databaseConfig } from "@config/database";
+import { authConfig } from "@config/auth";
 import { z } from "zod";
 import dotenv from "dotenv";
 
@@ -15,6 +16,7 @@ const validatedEnv = z.object({
   ...logConfig,
   ...queConfig,
   ...databaseConfig,
+  ...authConfig,
 });
 
 const env = validatedEnv.parse(process.env);

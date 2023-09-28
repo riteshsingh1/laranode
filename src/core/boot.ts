@@ -6,6 +6,7 @@ import logger, { httpLog } from "@/core/logger";
 import { formatLog } from "@utils/formatLogger";
 import router from "@routes/index";
 import xss from "@/core/xss";
+import { decrypt, encrypt } from "./encryption";
 
 const app: Application = express();
 // Use Morgan!

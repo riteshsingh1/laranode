@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import { validationResult } from "express-validator";
-import { UsersService } from "@services/users.service";
+import { authService } from "@services/auth.service";
 
-const { createUsers } = UsersService;
+const { register } = authService;
 
 const signup = async (req: Request, res: Response) => {
   const result = validationResult(req);
@@ -12,7 +12,7 @@ const signup = async (req: Request, res: Response) => {
       data: result.array(),
     });
   }
-  const { errorCode, data } = await createUsers(req.body);
+  const { errorCode, data } = await register(req.body);
   return res.json({
     errorCode,
     data,
