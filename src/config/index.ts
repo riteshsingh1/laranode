@@ -4,6 +4,7 @@ import { logConfig } from "@config/logger";
 import { queConfig } from "@config/queue";
 import { databaseConfig } from "@config/database";
 import { authConfig } from "@config/auth";
+import { smsConfig } from "./sms";
 import { z } from "zod";
 import dotenv from "dotenv";
 
@@ -17,6 +18,7 @@ const validatedEnv = z.object({
   ...queConfig,
   ...databaseConfig,
   ...authConfig,
+  ...smsConfig,
 });
 
 const env = validatedEnv.parse(process.env);
