@@ -1,4 +1,5 @@
 import prisma from "@/core/database";
+import bcrypt from "bcrypt";
 import { ICreateUsers } from "../http/dtos/users.dto";
 import { UsersService } from "./users.service";
 import env from "@/config";
@@ -117,8 +118,28 @@ const verifyOTP = async (token: string, userOtp: string) => {
   return { errorCode: "NO_ERROR", data: null };
 };
 
+const verifyLoginRequest = async (username: string, password: string) => {
+  const getUser = await prisma.users.findFirst({
+    where: {
+      [env.AUTH_TABLE_USERNAME]: username,
+    },
+  });
+  if (!getUser) {
+    return { errorCode: "INVALID_CREDENTIALS", data: "Invalid Credentials" };
+  }
+  if (!getUser.isVerified) {
+    return { errorCode: "NOT_VERIFIED", data: "User Not Verified" };
+  }
+  const isPasswordValid = await bcrypt.compare(password, getUser.password);
+  if (!isPasswordValid) {
+    return { errorCode: "INVALID_CREDENTIALS", data: "Invalid Credentials" };
+  }
+  return { errorCode: "NO_ERROR" };
+};
+
 export const authService = {
   register,
   verifyLink,
   verifyOTP,
+  verifyLoginRequest,
 };
