@@ -19,7 +19,7 @@
       "@controllers/*":["./src/app/http/controllers/*"],
       "@services/*":["./src/app/services/*"],
       "@db/*":["./src/database/*"],
-      "@emails/*": ["src/app/notifications/emails/*"],
+      "@emails/*": ["./src/app/notifications/emails/*"],
       "@jobs/*": ["./src/console/jobs/*"],
       "@commands/*": ["./src/console/commands/*"],
       "@routes/*": ["./src/routes/*"],
