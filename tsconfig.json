@@ -6,7 +6,7 @@
     "module": "commonjs",                                /* Specify what module code is generated. */
     "rootDir": "./src",
     "outDir": "./dist",                                   /* Specify an output folder for all emitted files. */
-    "removeComments": true,                           /* Disable emitting comments. */
+    // "removeComments": true,                           /* Disable emitting comments. */
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,            /* Ensure that casing is correct in imports. */
     "strict": true,

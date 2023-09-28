@@ -1,7 +1,7 @@
 import { usersRequestValidator } from "./users.validator";
 import { body } from "express-validator";
 
-const ValidateSignUpRequest = [
+const validateSignUpRequest = [
   ...usersRequestValidator.validateCreateUsersRequest,
   body("confirmPassword")
     .notEmpty()
@@ -15,5 +15,5 @@ const ValidateSignUpRequest = [
 ];
 
 export const validateAuthRequest = {
-  ValidateSignUpRequest,
+  validateSignUpRequest,
 };

@@ -5,7 +5,8 @@ import { UsersService } from "@services/users.service";
 const { createUsers } = UsersService;
 
 const signup = async (req: Request, res: Response) => {
-  const result = validationResult(req.body);
+  const result = validationResult(req);
+  console.log("res=>", result);
   if (!result.isEmpty()) {
     return res.json({
       errorCode: "VALIDATION_ERROR",

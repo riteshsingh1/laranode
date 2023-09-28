@@ -18,12 +18,12 @@ app.use(xss());
 // Router
 app.use(router);
 // 404 Route
-// app.use("*", (_, res) => {
-//   return res.status(404).json({
-//     status: "NOT_FOUND",
-//     message: "The route you are looking for is not defined.",
-//   });
-// });
+app.use("*", (_, res) => {
+  return res.status(404).json({
+    status: "NOT_FOUND",
+    message: "The route you are looking for is not defined.",
+  });
+});
 // Start Server
 app.listen(env.PORT, () => {
   logger.info(formatLog("SERVER::BOOTED::SUCCESSFULLY", { port: env.PORT }));
