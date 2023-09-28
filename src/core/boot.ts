@@ -6,8 +6,15 @@ import logger from "@/core/logger";
 import { formatLog } from "@utils/formatLogger";
 import router from "@routes/index";
 import xss from "@/core/xss";
+import morgan from "morgan";
 
 const app: Application = express();
+// Use Morgan!
+app.use(
+  morgan(
+    ":remote-addr :method   { url- :url}  {status - :status}  {res - contentLength :res[content-length] }   {responseTime - :response-time ms} {userAgent - :user-agent} "
+  )
+);
 app.use(hpp());
 // Use Helmet!
 app.use(helmet());
