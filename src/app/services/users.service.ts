@@ -42,7 +42,7 @@ const createUsers = async (
     }
     return { errorCode: "EXCEPTION_ERROR", data: null };
   } catch (err: any) {
-    console.log("ERROR_IN_SAVING", err.Message);
+    console.log("ERROR_IN_SAVING", err);
     return { errorCode: "EXCEPTION_ERROR", data: null };
   }
 };

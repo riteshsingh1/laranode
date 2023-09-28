@@ -19,7 +19,18 @@ const signup = async (req: Request, res: Response) => {
   });
 };
 
-const verify = async (req: Request, res: Response) => {};
+const verifyLink = async (req: Request, res: Response) => {
+  const d = req.query.token;
+  if (!d) {
+    return res.json({
+      errorCode: "VALIDATION_ERROR",
+      data: "Invalid Token",
+    });
+  }
+  const data = authService.verifyLink(d.toString());
+  return res.json(data);
+};
+
 const resendVerificationRequest = async (req: Request, res: Response) => {};
 const login = async (req: Request, res: Response) => {};
 const forgotPassword = async (req: Request, res: Response) => {};
@@ -27,7 +38,7 @@ const resetPassword = async (req: Request, res: Response) => {};
 
 export const authController = {
   signup,
-  verify,
+  verifyLink,
   resendVerificationRequest,
   login,
   forgotPassword,

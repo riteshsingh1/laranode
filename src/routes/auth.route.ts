@@ -6,5 +6,6 @@ const { validateSignUpRequest } = validateAuthRequest;
 const router: Router = express.Router();
 
 router.post("/signup", validateSignUpRequest, signup);
+router.get("/verify", signup);
 
 export default router;
