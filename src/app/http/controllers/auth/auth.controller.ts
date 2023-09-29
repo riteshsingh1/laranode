@@ -5,7 +5,7 @@ import { authService } from "@services/auth.service";
 const signup = async (req: Request, res: Response) => {
   const result = validationResult(req);
   if (!result.isEmpty()) {
-    return res.json({
+    return res.status(400).json({
       errorCode: "VALIDATION_ERROR",
       data: result.array(),
     });
@@ -20,7 +20,7 @@ const signup = async (req: Request, res: Response) => {
 const verifyLink = async (req: Request, res: Response) => {
   const d = req.query.token;
   if (!d) {
-    return res.json({
+    return res.status(400).json({
       errorCode: "VALIDATION_ERROR",
       data: "Invalid Token",
     });
@@ -32,7 +32,7 @@ const verifyLink = async (req: Request, res: Response) => {
 const resendVerificationRequest = async (req: Request, res: Response) => {
   const d = req.query.token;
   if (!d) {
-    return res.json({
+    return res.status(400).json({
       errorCode: "VALIDATION_ERROR",
       data: "Invalid Token",
     });
@@ -51,7 +51,7 @@ const login = async (req: Request, res: Response) => {
   try {
     const result = validationResult(req);
     if (!result.isEmpty()) {
-      return res.json({
+      return res.status(400).json({
         errorCode: "VALIDATION_ERROR",
         data: result.array(),
       });
@@ -72,7 +72,7 @@ const forgotPassword = async (req: Request, res: Response) => {
   try {
     const field: string = req.body.field;
     const data = await authService.forgotPassword(field);
-    return res.json(data);
+    return res.status(400).json(data);
   } catch (e) {
     return res.json({
       errorCode: "SERVER_ERROR",
