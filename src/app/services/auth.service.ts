@@ -137,9 +137,99 @@ const verifyLoginRequest = async (username: string, password: string) => {
   return { errorCode: "NO_ERROR" };
 };
 
+const resendVerificationRequest = async (token: string) => {
+  const data = decrypt(token);
+  const [id, otp, expiry, retry] = data.split("__");
+  if (Number(retry) > 3) {
+    return { errorCode: "RETRY_COUNT_EXCEDDED", data: "OTP Expired" };
+  }
+  if (Number(expiry) < new Date().getTime()) {
+    return { errorCode: "OTP_EXPIRED", data: "OTP Expired" };
+  }
+  const otpNew = Math.floor(100000 + Math.random() * 900000);
+  if (env.VERIFICATION_TRANSPORT === "email") {
+    // send email
+    await OTP_MAIL(id, otpNew.toString());
+  }
+  if (env.VERIFICATION_TRANSPORT === "sms") {
+    // send sms
+    await sendSMS(`+91${id}`, OTP_STRING.replace("{{otp}}", otpNew.toString()));
+  }
+  const responseToken = encrypt(
+    `${id}__${otpNew}__${new Date().getTime() + 600000}__retry=${
+      Number(retry) + 1
+    }`
+  );
+  return { errorCode: "NO_ERROR", data: { responseToken } };
+};
+
+const forgotPassword = async (field: string) => {
+  const getUser = await prisma.users.findFirst({
+    where: {
+      [env.AUTH_TABLE_USERNAME]: field,
+    },
+  });
+  if (!getUser) {
+    return { errorCode: "INVALID_FIELD", data: "Invalid Field" };
+  }
+  const otp = Math.floor(100000 + Math.random() * 900000);
+  if (env.VERIFICATION_TRANSPORT === "email") {
+    // send email
+    await OTP_MAIL(getUser.email, otp.toString());
+  }
+  if (env.VERIFICATION_TRANSPORT === "sms") {
+    // send sms
+    await sendSMS(
+      `+91${getUser.mobile}`,
+      OTP_STRING.replace("{{otp}}", otp.toString())
+    );
+  }
+  const responseToken = encrypt(
+    `${getUser.id}__${otp}__${new Date().getTime() + 600000}__retry=0`
+  );
+  return { errorCode: "NO_ERROR", data: { responseToken } };
+};
+
+const resetPassword = async (data: {
+  otp: string;
+  password: string;
+  token: string;
+}) => {
+  const dataDecrypted = decrypt(data.token);
+  const [id, otp, expiry, retry] = dataDecrypted.split("__");
+  if (Number(retry) > 3) {
+    return { errorCode: "RETRY_COUNT_EXCEDDED", data: "OTP Expired" };
+  }
+  if (Number(expiry) < new Date().getTime()) {
+    return { errorCode: "OTP_EXPIRED", data: "OTP Expired" };
+  }
+  if (otp !== data.otp) {
+    return { errorCode: "INVALID_OTP", data: "Invalid OTP" };
+  }
+  const password = await bcrypt.hash(data.password, 10);
+  await prisma.users.update({
+    where: {
+      id: Number(id),
+    },
+    data: {
+      password,
+      updatedAt: new Date(),
+    },
+  });
+  return { errorCode: "NO_ERROR", data: null };
+};
+
+const login = async (data: {}) => {
+  return { errorCode: "NO_ERROR", data: null };
+};
+
 export const authService = {
   register,
   verifyLink,
   verifyOTP,
   verifyLoginRequest,
+  resendVerificationRequest,
+  forgotPassword,
+  resetPassword,
+  login,
 };

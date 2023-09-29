@@ -31,10 +31,51 @@ const verifyLink = async (req: Request, res: Response) => {
   return res.json(data);
 };
 
-const resendVerificationRequest = async (req: Request, res: Response) => {};
-const login = async (req: Request, res: Response) => {};
-const forgotPassword = async (req: Request, res: Response) => {};
-const resetPassword = async (req: Request, res: Response) => {};
+const resendVerificationRequest = async (req: Request, res: Response) => {
+  const d = req.query.token;
+  if (!d) {
+    return res.json({
+      errorCode: "VALIDATION_ERROR",
+      data: "Invalid Token",
+    });
+  }
+  const data = authService.resendVerificationRequest(d.toString());
+  return res.json(data);
+};
+
+/**
+ * Login user to the system
+ * @param req Request
+ * @param res Response
+ * @returns Json Data
+ */
+const login = async (req: Request, res: Response) => {
+  const result = validationResult(req);
+  if (!result.isEmpty()) {
+    return res.json({
+      errorCode: "VALIDATION_ERROR",
+      data: result.array(),
+    });
+  }
+  const data = await authService.login(req.body);
+  return res.json(data);
+};
+
+const forgotPassword = async (req: Request, res: Response) => {
+  try {
+    const field: string = req.body.field;
+    const data = await authService.forgotPassword(field);
+    return res.json(data);
+  } catch (e) {
+    return res.json({
+      errorCode: "SERVER_ERROR",
+    });
+  }
+};
+const resetPassword = async (req: Request, res: Response) => {
+  const data = await authService.resetPassword(req.body);
+  return res.json(data);
+};
 
 export const authController = {
   signup,
