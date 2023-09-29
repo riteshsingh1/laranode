@@ -1,16 +1,7 @@
-[x] configure Background job  - link - https://www.npmjs.com/package/kue
+# Laranode :: Dead Simple Express JS Framework for NodeJS, Inspired By Laravel.
 
-[x] Configure Auth
+Laranode is inspired by laravel, It is a dead simple framework, which is inspired by laravel, but its for api only.
 
-[x] Configure SMS Via Twilio
+For frontend you can use anything - NextJS, ReactJS, Svelte, Vue or Angular.
 
-[x] Send Email
-
-[x] Setup Docker
-
-[x] Create a npx script
-
-[x] Publish and Write a Blog
-
-
-
+## Installation
