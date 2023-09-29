@@ -50,15 +50,24 @@ const resendVerificationRequest = async (req: Request, res: Response) => {
  * @returns Json Data
  */
 const login = async (req: Request, res: Response) => {
-  const result = validationResult(req);
-  if (!result.isEmpty()) {
+  try {
+    const result = validationResult(req);
+    if (!result.isEmpty()) {
+      return res.json({
+        errorCode: "VALIDATION_ERROR",
+        data: result.array(),
+      });
+    }
+    const data = await authService.verifyLoginRequest(
+      req.body.username,
+      req.body.password
+    );
+    return res.json(data);
+  } catch (e) {
     return res.json({
-      errorCode: "VALIDATION_ERROR",
-      data: result.array(),
+      errorCode: "SERVER_ERROR",
     });
   }
-  const data = await authService.login(req.body);
-  return res.json(data);
 };
 
 const forgotPassword = async (req: Request, res: Response) => {

@@ -8,4 +8,5 @@ export const authConfig = {
   ENCRYPT_TOKEN: z.string().nonempty(),
   AUTH_TOKEN_TYPE: z.string().nonempty(),
   VERIFICATION_TRANSPORT: z.string().nonempty(),
+  AUTH_TOKEN_EXPIRY: z.string().nonempty(),
 };
