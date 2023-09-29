@@ -2,8 +2,6 @@ import { Request, Response } from "express";
 import { validationResult } from "express-validator";
 import { authService } from "@services/auth.service";
 
-const { register } = authService;
-
 const signup = async (req: Request, res: Response) => {
   const result = validationResult(req);
   if (!result.isEmpty()) {
@@ -12,7 +10,7 @@ const signup = async (req: Request, res: Response) => {
       data: result.array(),
     });
   }
-  const { errorCode, data } = await register(req.body);
+  const { errorCode, data } = await authService.register(req.body);
   return res.json({
     errorCode,
     data,
