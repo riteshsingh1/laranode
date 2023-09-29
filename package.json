@@ -49,7 +49,8 @@
     "underscore": "^1.13.6",
     "winston": "^3.10.0",
     "xss-filters": "^1.2.7",
-    "zod": "^3.22.2"
+    "zod": "^3.22.2",
+    "swagger-ui-express": "^5.0.0"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
@@ -58,6 +59,8 @@
     "@types/jsonwebtoken": "^9.0.3",
     "@types/morgan": "^1.9.6",
     "@types/nodemailer": "^6.4.11",
+    "@types/passport-jwt": "^3.0.10",
+    "@types/swagger-ui-express": "^4.1.4",
     "@types/underscore": "^1.11.9",
     "@types/xss-filters": "^0.0.28",
     "nodemon": "^3.0.1",
